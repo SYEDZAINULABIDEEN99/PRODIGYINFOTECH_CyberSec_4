@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keylogger Simulation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            text-align: center;
+            width: 300px; /* Adjusted width for vertical layout */
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #28a745;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            margin: 10px 0; /* Add vertical spacing between buttons */
+            cursor: pointer;
+            width: 100%; /* Full width buttons */
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .status {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .log-output {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+            max-height: 150px;
+            overflow-y: scroll;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Keylogger Simulation</h1>
+
+    <button onclick="startLogging()">Start Key Logging</button>
+    <button onclick="stopLogging()">Stop Key Logging</button>
+
+    <div class="status" id="statusMessage">Status: Not logging</div>
+
+    <div class="log-output" id="logOutput">Key Logs will appear here...</div>
+</div>
+
+<script>
+    let logging = false;
+    const logOutput = document.getElementById('logOutput');
+    const statusMessage = document.getElementById('statusMessage');
+
+    function startLogging() {
+        if (!logging) {
+            logging = true;
+            statusMessage.textContent = 'Status: Logging...';
+            logOutput.innerHTML = '';
+            document.addEventListener('keydown', logKey);
+        }
+    }
+
+    function stopLogging() {
+        if (logging) {
+            logging = false;
+            statusMessage.textContent = 'Status: Not logging';
+            document.removeEventListener('keydown', logKey);
+        }
+    }
+
+    function logKey(e) {
+        logOutput.innerHTML += `<p>${e.key}</p>`;
+    }
+</script>
+
+</body>
+</html>
